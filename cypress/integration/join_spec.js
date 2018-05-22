@@ -1,0 +1,30 @@
+describe("join in as a Founder", () => {
+  it("join as founder with correct credentials", () => {
+    cy.viewport(1200,660);
+    cy.server();
+    cy.visit('/');
+    let password = "secret123";
+     cy.get('#location-search').type('Silicon Valley').should('have.value','Silicon Valley');
+    cy.wait(5000);
+
+     cy.get('.ui-autocomplete .ui-corner-all');
+     cy.get('.ui-corner-all> li').first().click();
+    cy.wait(1000);
+     
+    cy.contains('Join').click({force:true});
+
+    cy.get('body').then(($body) => {
+      if ($body.text().includes('See the full list')) {
+        cy.form();
+        //When the semester is not available for that location
+      } else if ($body.text().includes('Unfortunately, your city')){
+        cy.form();
+      } else {
+        cy.form();
+        cy.get("#password").type(password);
+        //When the semester is available at the location
+      }
+    })
+    // cy.get("#global-apply").click();
+ })
+});
