@@ -67,6 +67,38 @@ describe('App initialization',()=>{
     cy.get('.main-footer').contains('Insights').click();
     cy.get('.main-footer').contains('Events').click();
     cy.get('.main-footer').contains('FAQ').click();
+    
+  }),
+  // it("allows user to apply as a lead",()=>{
+    
+  //   cy.get('.main-footer').contains('Lead a Chapter').click();
+  //   cy.get('.text-center .btn').click(); //apply as a lead
+  //   cy.get(":nth-child(1) > #first_name").type("Lead");
+  //   cy.get(":nth-child(1) > :nth-child(2) > #first_name").type("object");
+  //   cy.get('#email_address').type('lead@test.com');
+  //   cy.get('#linkedin_website').type('lead@biopic.com');
+  //   cy.get('input[name="lead[city]"]').type('Boston');
+  //   cy.contains("Submit").click();
+  //   cy.contains("Thank you for applying to be a Local Leader.")
+  // })
+  it("allows user to click support",()=>{
+    cy.get(".main-footer").contains("Startup Resources").should('have.attr','href','/vault').click();
+    cy.go('back');
+    cy.get('.main-footer').contains('Contact Us').should('have.attr','href','/support').click();
+    cy.go('back');
+    cy.get('.main-footer').contains('Agreements').should('have.attr', 'href', '/agreements').click();
+    cy.go('back');
+    cy.get('.main-footer').contains('Sponsor Us').should('have.attr', 'href', '/sponsor').click();
+    cy.go('back');
+    cy.get('.main-footer').contains('Jobs').should('have.attr','href','/jobs').click();
+    cy.go('back');
+  }), 
+  it("allows user to check mentors",()=>{
+    cy.get('.home-mentors').contains('More Mentors').click();
+    cy.url().should('eq', "http://localhost:3000/mentors");
+  })
+  it("allows user to see graduates page",()=>{
+    cy.contains('Graduates').should('have.attr','href','/graduates').click();
   })
 })
 

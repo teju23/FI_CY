@@ -1,11 +1,10 @@
 describe("join in as a Founder", () => {
   it("join as founder with correct credentials", () => {
-    cy.viewport(1200,660);
     cy.server();
     cy.visit('/');
     let password = "secret123";
      cy.get('#location-search').type('Silicon Valley').should('have.value','Silicon Valley');
-    cy.wait(5000);
+    cy.wait(15000);
 
      cy.get('.ui-autocomplete .ui-corner-all');
      cy.get('.ui-corner-all> li').first().click();
@@ -25,6 +24,13 @@ describe("join in as a Founder", () => {
         //When the semester is available at the location
       }
     })
-    // cy.get("#global-apply").click();
+    cy.get('iframe').first().then(($iframe)=>{
+      const doc = $iframe.contents();
+      doc.find('button').click(()=>{
+        console.log("clicked!!");
+      })
+      cy.wrap(doc.find('button').click({force: true}))
+    })
+    cy.get(".registration-form").submit();
  })
 });
