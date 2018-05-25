@@ -99,7 +99,7 @@ describe('App initialization',()=>{
   })
   it("allows user to see graduates page",()=>{
     cy.contains('Graduates').should('have.attr','href','/graduates').click();
-  })
+  }) 
 })
 
 
