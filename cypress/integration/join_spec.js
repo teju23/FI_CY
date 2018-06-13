@@ -26,10 +26,10 @@ describe("join in as a Founder", () => {
     })
     cy.get('iframe').first().then(($iframe)=>{
       const doc = $iframe.contents();
-      doc.find('button').click(()=>{
+      doc.find('.recaptcha-checkbox-checkmark').click(()=>{
         console.log("clicked!!");
       })
-      cy.wrap(doc.find('button').click({force: true}))
+      cy.wrap(doc.find('.recaptcha-checkbox-checkmark').click({force: true}))
     })
     cy.get(".registration-form").submit();
  })

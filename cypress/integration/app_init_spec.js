@@ -17,7 +17,7 @@ describe('App initialization',()=>{
     cy.get(".btn-transparent").focus().click({ force: true });//clicks on Sign In
     cy.get(".footer-action").contains("Recover").should('have.attr', 'href', '#').click();
     cy.get('#password-reset-form').within(($form)=>{
-      cy.get("#user_email").type('teju@codeastra.com');
+      cy.get("#user_email").type('admin@fi.co');
       cy.get('.btn').click(); 
     })
     cy.get("#main_message");
@@ -45,7 +45,7 @@ describe('App initialization',()=>{
     cy.get(".btn-transparent").focus().click({ force: true });//clicks on Sign In
     cy.get(".footer-action").contains("Recover").should('have.attr', 'href', '#').click();
     cy.get('#password-reset-form').within(($form) => {
-      cy.get("#user_email").type('teju@astra.com');//new email
+      cy.get("#user_email").type('adin@fi.co');//new email
       cy.get('.btn').click();
     })
     cy.contains("Please Register...");
@@ -62,11 +62,11 @@ describe('App initialization',()=>{
     cy.go('back');
     cy.get(".call-to-action .btn").focus().click();
    
-    cy.get('.main-footer').contains('Press').click();
-    cy.get('.main-footer').contains('Partners').click();
-    cy.get('.main-footer').contains('Insights').click();
-    cy.get('.main-footer').contains('Events').click();
-    cy.get('.main-footer').contains('FAQ').click();
+    // cy.get('.main-footer').contains('Press').click();
+    // cy.get('.main-footer').contains('Partners').click();
+    // cy.get('.main-footer').contains('Insights').click();
+    // cy.get('.main-footer').contains('Events').click();
+    // cy.get('.main-footer').contains('FAQ').click();
     
   }),
   // it("allows user to apply as a lead",()=>{
@@ -84,14 +84,14 @@ describe('App initialization',()=>{
   it("allows user to click support",()=>{
     cy.get(".main-footer").contains("Startup Resources").should('have.attr','href','/vault').click();
     cy.go('back');
-    cy.get('.main-footer').contains('Contact Us').should('have.attr','href','/support').click();
-    cy.go('back');
-    cy.get('.main-footer').contains('Agreements').should('have.attr', 'href', '/agreements').click();
-    cy.go('back');
-    cy.get('.main-footer').contains('Sponsor Us').should('have.attr', 'href', '/sponsor').click();
-    cy.go('back');
-    cy.get('.main-footer').contains('Jobs').should('have.attr','href','/jobs').click();
-    cy.go('back');
+    // cy.get('.main-footer').contains('Contact Us').should('have.attr','href','/support').click();
+    // cy.go('back');
+    // cy.get('.main-footer').contains('Agreements').should('have.attr', 'href', '/agreements').click();
+    // cy.go('back');
+    // cy.get('.main-footer').contains('Sponsor Us').should('have.attr', 'href', '/sponsor').click();
+    // cy.go('back');
+    // cy.get('.main-footer').contains('Jobs').should('have.attr','href','/jobs').click();
+    // cy.go('back');
   }), 
   it("allows user to check mentors",()=>{
     cy.get('.home-mentors').contains('More Mentors').click();

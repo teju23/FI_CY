@@ -1,6 +1,6 @@
 {
   "baseUrl":"http://localhost:3000/",
-
+  "recoverFromRendererCrashes": true,
 
  "viewportWidth": 1200,
   "viewportHeight": 660

@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add("signup", (email, password,wrongEmail = false) => {
-  cy.visit('/');
+  // cy.visit('/');
   cy.get(".btn-transparent").focus().click({ force: true });
   cy.get('#login-form').within(($form) => {
     cy.get('#email').type(email).should('have.value', email);
@@ -47,4 +47,37 @@ Cypress.Commands.add("form",()=>{
   cy.get('#last_name').type(lastname).should('have.value', lastname);
   cy.get('input[name="user[email]"]').last().type(email).should('have.value', email);
   cy.get('#idea_state').select("Early idea");  
+}),
+Cypress.Commands.add('post',()=>{
+  cy.contains('Add New Discussion').click();
+  cy.get('#title').type('DiscussionTest1')
+  cy.get('#comment').type('comment comment comment');
+  cy.contains('Create Discussion').click();
+  cy.wait(5000);
+  cy.contains('Successfully Posted');//created new post
+  cy.get('.slider').first().click();//hides and unhides accordingly
+  cy.get('.btn-primary').first().click();
+  cy.wait(500);
+  cy.get('#title').type('{selectall}').type('{backspace}');
+  cy.get('#title').type('testing');
+  cy.contains('Update Discussion').click();
+  cy.wait(500);
+  cy.contains('Successfully updated...');//updation of title 
+  cy.get('.large-heading').contains('testing');//checks updated title
+  cy.contains('Reply').click();
+  cy.get('#field_2').type("test Reply 1");
+  cy.get('.reply .btn').first().click();
+  cy.wait(500);
+  cy.contains('Successfully Posted');//checks Reply to the post
+  cy.get('.panel-heading').then(() => {
+    cy.get('.slider').last().click();
+  })
+  cy.get('.reply_toggle_link').then(() => {
+    cy.contains('Delete').click();//Deletes the reply
+    cy.wait(500);
+  })
+  cy.get('.btn-danger').click();
+  cy.contains('Deletion Successful');//Deletes the created post
+  cy.wait(500);
+
 })
