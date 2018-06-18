@@ -1,6 +1,6 @@
 describe("allows Admin to create a new blog",()=>{
   beforeEach(function () {
-    cy.visit('/')
+    cy.visit('/');
   })
   it("allows Admin to create post",()=>{
     cy.signup('admin@fi.co', 'secret123');

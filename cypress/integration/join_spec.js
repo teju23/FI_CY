@@ -3,15 +3,12 @@ describe("join in as a Founder", () => {
     cy.server();
     cy.visit('/');
     let password = "secret123";
-     cy.get('#location-search').type('Silicon Valley').should('have.value','Silicon Valley');
-    cy.wait(15000);
-
-     cy.get('.ui-autocomplete .ui-corner-all');
-     cy.get('.ui-corner-all> li').first().click();
+    cy.get('#location-search').type('Silicon Valley').should('have.value', 'Silicon Valley');
+    cy.get('.ui-autocomplete .ui-corner-all', { timeout: 15000 });
+    cy.get('.ui-corner-all> li').first().click();
     cy.wait(1000);
-     
-    cy.contains('Join').click({force:true});
-
+    cy.contains('Join').click({force: true});
+    cy.wait(1000);
     cy.get('body').then(($body) => {
       if ($body.text().includes('See the full list')) {
         cy.form();
@@ -24,13 +21,9 @@ describe("join in as a Founder", () => {
         //When the semester is available at the location
       }
     })
-    cy.get('iframe').first().then(($iframe)=>{
-      const doc = $iframe.contents();
-      doc.find('.recaptcha-checkbox-checkmark').click(()=>{
-        console.log("clicked!!");
-      })
-      cy.wrap(doc.find('.recaptcha-checkbox-checkmark').click({force: true}))
-    })
     cy.get(".registration-form").submit();
- })
+    cy.wait(1000);
+    cy.contains('Application Questions');
+    cy.contains("Logout").click();
+  })
 });
