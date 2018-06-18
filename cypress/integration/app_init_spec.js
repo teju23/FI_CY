@@ -4,7 +4,7 @@ describe('App initialization',()=>{
   })
   it("allows user to set location",()=>{ 
     cy.get('#location-search').type('Silicon Valley');
-    cy.wait(5000);
+    cy.get('.ui-autocomplete .ui-corner-all', { timeout: 10000 });
     cy.get('.ui-corner-all> li').first().click();
     cy.wait(1000);
     cy.get("#location-search").should("have.value","Silicon Valley");
@@ -29,13 +29,11 @@ describe('App initialization',()=>{
   it("allows user to go from recover form to sign in form", () => {
     cy.get(".btn-transparent").focus().click({force: true}); //clicks on Sign In
     cy.get(".footer-action").contains("Recover").should('have.attr', 'href', '#').click();
-    cy.get('#password-reset-form')
+    cy.get('#password-reset-form');
     cy.get('.toggle-signin-password-form').last().click();
   })
   it("allows user to go from recover form to register", () => {
-    cy.get(".btn-transparent").focus().click({
-      force: true
-    }); //clicks on Sign In
+    cy.get(".btn-transparent").focus().click({force: true}); //clicks on Sign In
     cy.get(".footer-action").contains("Recover").should('have.attr', 'href', '#').click();
     cy.get('#password-reset-form');
     cy.contains('Register').should("have.attr",'href',"/join").click({force:true});
@@ -93,7 +91,7 @@ describe('App initialization',()=>{
     // cy.get('.main-footer').contains('Jobs').should('have.attr','href','/jobs').click();
     // cy.go('back');
   }), 
-  it("allows user to check mentors",()=>{
+  it("allows user to check list mentors",()=>{
     cy.get('.home-mentors').contains('More Mentors').click();
     cy.url().should('eq', "http://localhost:3000/mentors");
   })
