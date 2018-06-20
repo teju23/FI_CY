@@ -80,4 +80,24 @@ Cypress.Commands.add('post',()=>{
   cy.contains('Deletion Successful');//Deletes the created post
   cy.wait(500);
 
+}),
+Cypress.Commands.add('location',()=>{
+  cy.get('#location-search').type('Silicon Valley').should('have.value', 'Silicon Valley');
+  cy.get('.ui-autocomplete .ui-corner-all', { timeout: 15000 });
+  cy.get('.ui-corner-all> li').first().click();
+}),
+Cypress.Commands.add('event_register',()=>{
+  cy.visit('/events');
+  cy.wait(1000);
+  cy.get('.featured-hero').click();
+  cy.contains('Register to this event').click();
+  cy.get('.modal-header').contains('You are successfully registered for');
+  cy.get(".close").click();
+  cy.contains('You are confirmed for this event. Congratulations!');
+  cy.get(".event-registered-message").contains("Cancel Attendance").focus().click();
+  cy.contains("You have indicated that you are NOT attending this event.");
+  cy.contains("Register to this event").click();
+  cy.get('.modal-header').contains('You are successfully registered for');
+  cy.get(".close").click();
+  cy.get(".event-registered-message").contains("Cancel Attendance").focus().click();//to make the form as not registered user temporary fix for Attend.count.destroy
 })
