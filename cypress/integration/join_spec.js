@@ -3,9 +3,7 @@ describe("join in as a Founder", () => {
     cy.server();
     cy.visit('/');
     let password = "secret123";
-    cy.get('#location-search').type('Silicon Valley').should('have.value', 'Silicon Valley');
-    cy.get('.ui-autocomplete .ui-corner-all', { timeout: 15000 });
-    cy.get('.ui-corner-all> li').first().click();
+    cy.location();
     cy.wait(1000);
     cy.contains('Join').click({force: true});
     cy.wait(1000);
