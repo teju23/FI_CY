@@ -1,12 +1,13 @@
 describe("journey from lead to graduate",()=>{
   beforeEach(()=>{
     cy.visit('/');
+  }),
+  afterEach(()=>{
+    cy.contains('Logout').click({ force: true });
   })
   it("allows user to register",()=>{
     let password = "secret123";
-    cy.get('#location-search').type('Silicon Valley').should('have.value', 'Silicon Valley');
-    cy.get('.ui-autocomplete .ui-corner-all', { timeout: 10000 });
-    cy.get('.ui-corner-all> li').first().click();
+    cy.location();
     cy.wait(1000);
     cy.contains('Join').click({ force: true });
     cy.wait(1000);
@@ -22,7 +23,6 @@ describe("journey from lead to graduate",()=>{
         //When the semester is available at the location
       }
     })
-    // cy.window().then(win => win.$('#global-apply').prop('disabled', false));
     cy.get(".registration-form").submit();
     cy.wait(1000);
     cy.get('#education').select('3');
@@ -42,8 +42,6 @@ describe("journey from lead to graduate",()=>{
     cy.get('input[value="SUBMIT APPLICATION"]').click();
     cy.wait(1000);
     cy.contains('Congratulations! See the next steps below.');
-    // cy.contains('Successfully updated.');
-    cy.contains("Logout").click();
   }),
   it('allows admin to accept the applied user',()=>{
     cy.signup('admin@fi.co', 'secret123');
@@ -61,7 +59,6 @@ describe("journey from lead to graduate",()=>{
     cy.signup('codeastratest@gmail.com','secret123');
     cy.url().should('eq','http://localhost:3000/join');
     cy.contains('Step 1: Pay the Course Fee');//only for accepted founders the course fee will be asked
-    cy.contains("Logout").click();
   }),
   it('allows admin to make the accpeted founder to graduated',()=>{
     cy.signup('admin@fi.co','secret123');
@@ -72,8 +69,7 @@ describe("journey from lead to graduate",()=>{
     cy.get('.information-check-tool').siblings('a').last().invoke('text').should('include','Teju');
     cy.get('.information-check-tool').get('td [id="new_status"]').last().select('Graduated');
     cy.wait(1000);
-   cy.get('table > tbody > tr').last().children('td').eq(6).find('input[type="submit"]').click();
-    cy.contains("Logout").click();
+    cy.get('table > tbody > tr').last().children('td').eq(6).find('input[type="submit"]').click();
   }),
   it('allows to know the accepted founder is graduated',()=>{
     cy.signup('codeastratest@gmail.com', 'secret123');
@@ -81,6 +77,5 @@ describe("journey from lead to graduate",()=>{
       ($body.text().includes('Graduates, like you, are the backbone of the Founder Institute.'))
     });
     cy.contains('Go to New Site').click();
-    cy.contains("Logout").click();
   })
 })  
