@@ -2,14 +2,17 @@ describe("allows to register for an event",()=>{
   beforeEach( ()=>{
     cy.visit('/');
   }),
+  afterEach(()=>{
+    cy.contains('Logout').click({ force: true });
+  })
   it("allows user to register for the upcoming event",()=>{
     let phone = '9999999999';
     cy.contains('Events').should('have.attr','href',('/events')).click();
     cy.get('.featured-hero').click();
     cy.get('.registration-form').within(($form)=>{
-     cy.form();
-      cy.get('#phone_number').type(phone).should('have.value', phone);
-      cy.contains('Register to this event').click();
+    cy.form();
+    cy.get('#phone_number').type(phone).should('have.value', phone);
+    cy.contains('Register to this event').click();
     });
     cy.get('.modal-header').contains('You are successfully registered for');
     cy.get(".close").click();
@@ -20,61 +23,21 @@ describe("allows to register for an event",()=>{
     cy.get('.modal-header').contains('You are successfully registered for');
     cy.get(".close").click();
     cy.get(".event-registered-message").contains("Cancel Attendance").focus().click();
-    cy.contains('Logout').click();
   }),
   it('allows accepted founder to register for the event',()=>{
     cy.signup('accepted_founder@gmail.com', 'secret123');
-    cy.contains('Events').should('have.attr', 'href', ('/events')).click();
-    cy.get('.featured-hero').click();
-    cy.contains('Register to this event').click();
-    cy.get('.modal-header').contains('You are successfully registered for');
-    cy.get(".close").click();
-    cy.contains('You are confirmed for this event. Congratulations!');
-    cy.get(".event-registered-message").contains("Cancel Attendance").focus().click();
-    cy.contains("You have indicated that you are NOT attending this event.");
-    cy.contains("Register to this event").click();
-    cy.get('.modal-header').contains('You are successfully registered for');
-    cy.get(".close").click();
-    cy.get(".event-registered-message").contains("Cancel Attendance").focus().click();//to make the form as not registered user temporary fix for Attend.count.destroy
-    cy.contains('Logout').click();
+    cy.event_register()
   }),
   it('allows applied founder to register for the event',()=>{
     cy.signup('applied_founder@gmail.com','secret123');
-    cy.contains('Events').should('have.attr', 'href', ('/events')).click();
-    cy.get('.featured-hero').click();
-    cy.contains('Register to this event').click();
-    cy.get('.modal-header').contains('You are successfully registered for');
-    cy.get(".close").click();
-    cy.contains('You are confirmed for this event. Congratulations!');
-    cy.get(".event-registered-message").contains("Cancel Attendance").focus().click();
-    cy.contains("You have indicated that you are NOT attending this event.");
-    cy.contains("Register to this event").click();
-    cy.get('.modal-header').contains('You are successfully registered for');
-    cy.get(".close").click();
-    cy.get(".event-registered-message").contains("Cancel Attendance").focus().click();
-    cy.contains('Logout').click();
+    cy.event_register();
   }),
   it('allows admin to register for the event',()=>{
     cy.signup('graduated_founder@gmail.com','secret123');
-    cy.contains('Go to New Site').click();
-    cy.contains('Events').should('have.attr', 'href', ('/events')).click();
-    cy.get('.featured-hero').click();
-    cy.contains('Register to this event').click();
-    cy.get('.modal-header').contains('You are successfully registered for');
-    cy.get(".close").click();
-    cy.contains('You are confirmed for this event. Congratulations!');
-    cy.get(".event-registered-message").contains("Cancel Attendance").focus().click();
-    cy.contains("You have indicated that you are NOT attending this event.");
-    cy.contains("Register to this event").click();
-    cy.get('.modal-header').contains('You are successfully registered for');
-    cy.get(".close").click();
-    cy.get(".event-registered-message").contains("Cancel Attendance").focus().click();
-    cy.contains('Logout').click();
+    cy.event_register();
   }),
   it('it allows super admin to add a new event',()=>{
-    cy.get('#location-search').type('Silicon Valley');
-    cy.get('.ui-autocomplete .ui-corner-all', { timeout: 10000 });
-    cy.get('.ui-corner-all> li').first().click();
+    cy.location();
     cy.wait(1000);
     cy.get("#location-search").should("have.value", "Silicon Valley");
     cy.signup('admin@fi.co','secret123');
@@ -83,6 +46,5 @@ describe("allows to register for an event",()=>{
     cy.wait(1000);
     cy.contains('Add a Recruiting Event').click();
     cy.get('body').get('#main_message');
-    cy.contains('Logout').click();
   })
 })
