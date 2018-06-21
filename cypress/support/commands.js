@@ -39,10 +39,10 @@ Cypress.Commands.add("signup", (email, password,wrongEmail = false) => {
   }
 
 }),
-Cypress.Commands.add("form",()=>{
+Cypress.Commands.add("form",(email)=>{
   let firstname= 'Teju';
   let lastname = 'Reddy';
-  let email = 'codeastratest@gmail.com';
+  email = email || 'codeastratest@gmail.com';
   cy.get('#first_name').type(firstname).should('have.value', firstname);
   cy.get('#last_name').type(lastname).should('have.value', lastname);
   cy.get('input[name="user[email]"]').last().type(email).should('have.value', email);
@@ -83,7 +83,7 @@ Cypress.Commands.add('post',()=>{
 }),
 Cypress.Commands.add('location',()=>{
   cy.get('#location-search').type('Silicon Valley').should('have.value', 'Silicon Valley');
-  cy.get('.ui-autocomplete .ui-corner-all', { timeout: 15000 });
+  cy.get('.ui-autocomplete .ui-corner-all', { timeout: 20000 });
   cy.get('.ui-corner-all> li').first().click();
 }),
 Cypress.Commands.add('event_register',()=>{

@@ -9,12 +9,12 @@ describe("join in as a Founder", () => {
     cy.wait(1000);
     cy.get('body').then(($body) => {
       if ($body.text().includes('See the full list')) {
-        cy.form();
+        cy.form("join@gm.co");
         //When the semester is not available for that location
       } else if ($body.text().includes('Unfortunately, your city')){
-        cy.form();
+        cy.form("join@gm.co");
       } else {
-        cy.form();
+        cy.form("join@gm.co");
         cy.get("#password").type(password);
         //When the semester is available at the location
       }

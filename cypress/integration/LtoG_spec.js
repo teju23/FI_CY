@@ -1,4 +1,6 @@
 describe("journey from lead to graduate",()=>{
+  let password = "secret123";
+  let email = "lg@gm.co";
   beforeEach(()=>{
     cy.visit('/');
   }),
@@ -6,23 +8,23 @@ describe("journey from lead to graduate",()=>{
     cy.contains('Logout').click({ force: true });
   })
   it("allows user to register",()=>{
-    let password = "secret123";
+    
     cy.location();
     cy.wait(1000);
     cy.contains('Join').click({ force: true });
     cy.wait(1000);
     cy.get('body').then(($body) => {
       if ($body.text().includes('See the full list')) {
-        cy.form();
+        cy.form(email);
         //When the semester is not available for that location
       } else if ($body.text().includes('Unfortunately, your city')) {
-        cy.form();
+        cy.form(email);
       } else {
-        cy.form();
+        cy.form(email);
         cy.get("#password").type(password);
         //When the semester is available at the location
       }
-    })
+    }),
     cy.get(".registration-form").submit();
     cy.wait(1000);
     cy.get('#education').select('3');
@@ -56,12 +58,12 @@ describe("journey from lead to graduate",()=>{
     cy.get('table > tbody > tr').last().children('td').eq(6).find('input[type="submit"]').click();
   })
   it('allows to know the applied state changed to accepted',()=>{
-    cy.signup('codeastratest@gmail.com','secret123');
+    cy.signup(email,password);
     cy.url().should('eq','http://localhost:3000/join');
     cy.contains('Step 1: Pay the Course Fee');//only for accepted founders the course fee will be asked
   }),
   it('allows admin to make the accpeted founder to graduated',()=>{
-    cy.signup('admin@fi.co','secret123');
+    cy.signup('admin@fi.co', 'secret123');
     cy.contains('Enroll').should('have.attr', 'href', '/admin/enrollment?sort%5Bstatus%5D=Accepted&type=Accepted').click();
     cy.wait(1000);
     cy.get('.admin_select').first().select('Accepted');
@@ -72,7 +74,7 @@ describe("journey from lead to graduate",()=>{
     cy.get('table > tbody > tr').last().children('td').eq(6).find('input[type="submit"]').click();
   }),
   it('allows to know the accepted founder is graduated',()=>{
-    cy.signup('codeastratest@gmail.com', 'secret123');
+    cy.signup(email, password);
     cy.get('body').then(($body) => {
       ($body.text().includes('Graduates, like you, are the backbone of the Founder Institute.'))
     });
