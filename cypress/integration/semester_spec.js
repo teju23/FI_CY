@@ -12,13 +12,6 @@ describe("it allows admin to create a new semester",()=>{
     cy.get('body').then(($body) => {
       ($body.text().includes('Launched Boston'))
     });
-    // cy.contains('Launched Boston');
     cy.contains("Logout").click();
   })
-  // it("allows to register for new semester",()=>{
-
-  //   cy.get('#location-search').type('Silicon Valley').type('{enter}');
-  //   cy.contains('Join').should('have.attr', 'href', ('/join')).focus().click();
-  //   cy.form();
-  // })
 })

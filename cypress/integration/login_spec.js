@@ -4,7 +4,7 @@ describe("visit page as Admin",function(){
   }),
   it("visits the app",()=>{ 
     cy.signup('admin@fi.co','secret123');//correct credentials
-    cy.contains('Teju Homepage');
+    cy.contains('Admin Homepage');
     cy.contains('Go to New Site');//for admin
     cy.contains('Logout').click();
     
