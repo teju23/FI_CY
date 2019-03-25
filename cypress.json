@@ -1,9 +1,12 @@
 {
-  "baseUrl":"http://localhost:3000/",
+  "baseUrl": "http://localhost:3000/",
   "recoverFromRendererCrashes": true,
-
- "viewportWidth": 1200,
+  "pageLoadTimeout": 100000,
+  "viewportWidth": 1200,
   "viewportHeight": 660,
 
-    "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "screenshotOnHeadlessFailure": false,
+  "videoRecording": false,
+  "videoUploadOnPasses": false
 }
